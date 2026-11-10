@@ -1,0 +1,52 @@
+export type Question = {
+  id: number; title: string; language: "JavaScript" | "Python"; difficulty: string;
+  prompt: string; code: string; expected: string; hint: string; points: number;
+  tests: { input: string; output: string }[];
+};
+
+export const questions: Question[] = [
+ {id:0,title:"Warm-up: The Missing Return",language:"JavaScript",difficulty:"Trial",points:0,
+  prompt:"Fix the function so it returns the sum of the two numbers. The current function calculates the value but never sends it back.",
+  code:"function add(a, b) {\\n  const total = a + b;\\n}\\n\\nconsole.log(add(4, 6));",
+  expected:"10",hint:"A function needs an explicit return statement.",tests:[{input:"add(4, 6)",output:"10"}]},
+ {id:1,title:"Off-by-One Loop",language:"Python",difficulty:"Easy",points:100,
+  prompt:"The function should add every number from 1 through n. It currently misses the final number.",
+  code:"def total_to(n):\\n    total = 0\\n    for number in range(1, n):\\n        total += number\\n    return total\\n\\nprint(total_to(5))",
+  expected:"15",hint:"Remember that Python's range stop value is exclusive.",tests:[{input:"total_to(5)",output:"15"}]},
+ {id:2,title:"The Equality Trap",language:"JavaScript",difficulty:"Easy",points:100,
+  prompt:"Return true only when the supplied value is exactly the number 404. Avoid loose type coercion.",
+  code:"function isErrorCode(value) {\\n  return value = 404;\\n}\\nconsole.log(isErrorCode('404'));",
+  expected:"false",hint:"Check the difference between assignment and strict equality.",tests:[{input:"isErrorCode('404')",output:"false"}]},
+ {id:3,title:"List Index Crash",language:"Python",difficulty:"Easy",points:100,
+  prompt:"Return the final item in a non-empty list. The current implementation raises an IndexError.",
+  code:"def last_item(items):\\n    return items[len(items)]\\n\\nprint(last_item(['red', 'blue', 'green']))",
+  expected:"green",hint:"List indexes start at zero.",tests:[{input:"last_item(['red','blue','green'])",output:"green"}]},
+ {id:4,title:"Async Timing",language:"JavaScript",difficulty:"Moderate",points:150,
+  prompt:"Wait for the promise before printing the resolved message.",
+  code:"function getMessage() {\\n  return Promise.resolve('Debug complete');\\n}\\n\\nconst message = getMessage();\\nconsole.log(message);",
+  expected:"Debug complete",hint:"A Promise must be awaited inside an async function, or handled with .then().",tests:[{input:"await getMessage()",output:"Debug complete"}]},
+ {id:5,title:"Mutable Default",language:"Python",difficulty:"Moderate",points:150,
+  prompt:"Make each call receive a fresh list when no list is provided. Calling the function twice should not retain previous values.",
+  code:"def add_tag(tag, tags=[]):\\n    tags.append(tag)\\n    return tags\\n\\nprint(add_tag('first'))\\nprint(add_tag('second'))",
+  expected:"['second']",hint:"Use None as the default and create the list inside the function.",tests:[{input:"add_tag('second') after a fresh call",output:"['second']"}]},
+ {id:6,title:"Array Mutation",language:"JavaScript",difficulty:"Moderate",points:150,
+  prompt:"Return a new array with the extra item. Do not mutate the original array.",
+  code:"function appendSafe(items, value) {\\n  items.push(value);\\n  return items;\\n}\\nconst original = [1, 2];\\nconst result = appendSafe(original, 3);\\nconsole.log(original);",
+  expected:"[1, 2]",hint:"Create a copy before adding the new value.",tests:[{input:"appendSafe([1,2],3)",output:"[1,2,3]"}]},
+ {id:7,title:"Dictionary Lookup",language:"Python",difficulty:"Moderate",points:150,
+  prompt:"Return 0 when a key is missing instead of raising a KeyError.",
+  code:"def score_for(scores, name):\\n    return scores[name]\\n\\nprint(score_for({'Mira': 8}, 'Kai'))",
+  expected:"0",hint:"Dictionary.get() accepts a default value.",tests:[{input:"score_for({'Mira':8}, 'Kai')",output:"0"}]},
+ {id:8,title:"Scope Shadowing",language:"JavaScript",difficulty:"Hard",points:200,
+  prompt:"Fix the function so it increments the outer counter and returns the updated value.",
+  code:"let counter = 0;\\nfunction increment() {\\n  let counter = counter + 1;\\n  return counter;\\n}\\nconsole.log(increment());",
+  expected:"1",hint:"The local let declaration shadows the outer variable.",tests:[{input:"increment()",output:"1"}]},
+ {id:9,title:"Nested Loop Logic",language:"Python",difficulty:"Hard",points:200,
+  prompt:"Count the number of even values in the matrix. The current code counts rows incorrectly.",
+  code:"def count_even(matrix):\\n    count = 0\\n    for row in matrix:\\n        if row % 2 == 0:\\n            count += 1\\n    return count\\n\\nprint(count_even([[1, 2], [4, 5]]))",
+  expected:"2",hint:"Iterate over each value inside each row.",tests:[{input:"count_even([[1,2],[4,5]])",output:"2"}]},
+ {id:10,title:"Reduce Without Initial Value",language:"JavaScript",difficulty:"Hard",points:200,
+  prompt:"Return the sum of the array, including when the array is empty. Avoid a TypeError.",
+  code:"function sum(items) {\\n  return items.reduce((total, value) => total + value);\\n}\\nconsole.log(sum([]));",
+  expected:"0",hint:"reduce() can receive an initial accumulator value.",tests:[{input:"sum([])",output:"0"}]}
+];
